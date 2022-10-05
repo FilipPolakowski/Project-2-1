@@ -451,17 +451,30 @@ public class HelloApplication extends Application {
 
         Group root2 = new Group();
         root2.getChildren().add(b);
-        int whichPlayerWon = 1;
-        if(g.players.get(0).Score()<g.players.get(1).Score()){
-            whichPlayerWon=2;
-        }
+
         Text gameOver = new Text("Game over");
         gameOver.setX(200);
         gameOver.setY(100);
 
         root2.getChildren().add(gameOver);
+        Text whoWon = null;
+        if(!g.isTeamGame){
+            int whichPlayerWon = 1;
 
-        Text whoWon = new Text("The winning player is: " + whichPlayerWon);
+            if(g.players.get(0).Score()<g.players.get(1).Score()){
+                whichPlayerWon=2;
+                whoWon= new Text("The winning player is: " + whichPlayerWon);
+
+            }
+        }
+        else{
+            int whichPlayerWon = 1;
+
+            if(g.getScoreForTeam(1)>g.getScoreForTeam(0)){
+                whichPlayerWon=2;
+            }
+            whoWon = new Text("The winning team is: " + whichPlayerWon);
+        }
         whoWon.setY(50);
         b2.setLayoutY(60);
 
