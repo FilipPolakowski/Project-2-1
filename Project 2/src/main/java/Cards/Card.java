@@ -86,8 +86,6 @@ public class Card implements Comparable<Card> {
     public int hashCode() {
         return hashCode;
     }
-
-    // Allows the use of System.out.println(CARD) or similar string functions
     @Override
     public String toString() {
         return String.format("%s of %s (%d pts)", number.toString(), suit.toString(), number.scoreValue);

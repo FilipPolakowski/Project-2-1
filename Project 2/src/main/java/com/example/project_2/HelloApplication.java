@@ -197,9 +197,7 @@ public class HelloApplication extends Application {
 
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                if(g.isGameOver()){
-                    gameOver(stage);
-                }
+
                 try {
                     iv[3].setImage(Card.getImage(g.players.get(g.currentPlayer).getHand().get(0)));
                 } catch (FileNotFoundException | MalformedURLException e) {
@@ -216,8 +214,9 @@ public class HelloApplication extends Application {
                         //e.printStackTrace();
                         iv[i].setVisible(false);
                         rects[i].setVisible(false);
-
-
+                        if(i==0){
+                            gameOver(stage);
+                        }
                     }
                 }
                 for (int i = g.deck.size()+2; i < 40; i++) {
@@ -232,9 +231,16 @@ public class HelloApplication extends Application {
                 }
                 iv[3].setVisible(!g.Table.isEmpty());
                 currrentPlayer.setText("Current player: " + (g.currentPlayer+1));
-                System.out.println(g.players.get(0).Score()+" "+g.players.get(1).Score());
-                score1.setText("Player 1: " + g.players.get(0).Score());
-                score2.setText("Player 2: " + g.players.get(1).Score());
+                if(!g.isTeamGame) {
+                    score1.setText("Player 1: " + g.players.get(0).Score());
+                    score2.setText("Player 2: " + g.players.get(1).Score());
+                }
+                else{
+                    score1.setText("Team 1: " + g.getScoreForTeam(0));
+                    score2.setText("Team 2: " + g.getScoreForTeam(1));
+
+
+                }
             }
         };
         EventHandler<javafx.scene.input.MouseEvent> eh2 = new EventHandler<javafx.scene.input.MouseEvent>() {
@@ -257,6 +263,10 @@ public class HelloApplication extends Application {
                         //e.printStackTrace();
                         iv[i].setVisible(false);
                         rects[i].setVisible(false);
+                        if(i==0){
+                            gameOver(stage);
+                        }
+
 
                     }
                 }
@@ -278,9 +288,16 @@ public class HelloApplication extends Application {
 
                 }
                 currrentPlayer.setText("Current player: " + (g.currentPlayer+1));
+                if(!g.isTeamGame) {
+                    score1.setText("Player 1: " + g.players.get(0).Score());
+                    score2.setText("Player 2: " + g.players.get(1).Score());
+                }
+                else{
+                    score1.setText("Team 1: " + g.getScoreForTeam(0));
+                    score2.setText("Team 2: " + g.getScoreForTeam(1));
 
-                score1.setText("Player 1: " + g.players.get(0).Score());
-                score2.setText("Player 2: " + g.players.get(1).Score());
+
+                }
             }
         };
         EventHandler<javafx.scene.input.MouseEvent> eh3 = new EventHandler<javafx.scene.input.MouseEvent>() {
@@ -301,6 +318,10 @@ public class HelloApplication extends Application {
                         //e.printStackTrace();
                         iv[i].setVisible(false);
                         rects[i].setVisible(false);
+                        if(i==0){
+                            gameOver(stage);
+                        }
+
 
                     }
                 }
@@ -316,12 +337,19 @@ public class HelloApplication extends Application {
                 }
                 iv[3].setVisible(!g.Table.isEmpty());
                 currrentPlayer.setText("Current player: " + (g.currentPlayer+1));
+                if(!g.isTeamGame) {
+                    score1.setText("Player 1: " + g.players.get(0).Score());
+                    score2.setText("Player 2: " + g.players.get(1).Score());
+                }
+                else{
+                    score1.setText("Team 1: " + g.getScoreForTeam(0));
+                    score2.setText("Team 2: " + g.getScoreForTeam(1));
 
-                score1.setText("Player 1: " + g.players.get(0).Score());
-                score2.setText("Player 2: " + g.players.get(1).Score());
+
+                }
             }
         };
-        g = new GameSession(2);
+        g = new GameSession(ammountOfPLayers);
         score1 = new Text(20, 20, "Player 1: " + g.players.get(0).Score());
         score2 = new Text(420, 20, "Player 2: " + g.players.get(1).Score());
         currrentPlayer = new Text(0, 50, "Current player: " + g.currentPlayer);
